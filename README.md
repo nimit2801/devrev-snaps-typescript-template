@@ -1,4 +1,4 @@
-## Best DevRev Snaps TypeScript Template
+## DevRev Snaps TypeScript Template
 
 This repository contains a template for the functions that can be deployed as
 part of Snap-Ins.
