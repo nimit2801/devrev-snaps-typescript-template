@@ -1,18 +1,18 @@
-import { client, publicSDK } from "@devrev/typescript-sdk";
+import { client, publicSDK } from '@devrev/typescript-sdk';
+import { FunctionInput } from '@devrev/typescript-sdk/dist/snap-ins';
 
-export async function handleEvent(
-  event: any,
-) {
-  const devrevPAT = event.context.secrets.service_account_token;
+export async function handleEvent(event: FunctionInput) {
+  const devrevPAT = event.context.secrets['service_account_token'];
   const APIBase = event.execution_metadata.devrev_endpoint;
+  console.log('Hello World!');
   const devrevSDK = client.setup({
     endpoint: APIBase,
     token: devrevPAT,
-  })
+  });
   try {
     const response = await devrevSDK.worksList({
       limit: 1,
-      type: [publicSDK.WorkType.Ticket]
+      type: [publicSDK.WorkType.Ticket],
     });
     return response;
   } catch (error) {
@@ -21,11 +21,11 @@ export async function handleEvent(
   }
 }
 
-export const run = async (events: any[]) => {
+export const run = async (events: FunctionInput[]) => {
   /*
   Put your code here to handle the event.
   */
-  for (let event of events) {
+  for (const event of events) {
     await handleEvent(event);
   }
 };
