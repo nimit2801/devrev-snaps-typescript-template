@@ -1,18 +1,17 @@
-import { client, publicSDK } from "@devrev/typescript-sdk";
+import { client, publicSDK } from '@devrev/typescript-sdk';
 
-export async function handleEvent(
-  event: any,
-) {
+export async function handleEvent(event: any) {
   const devrevPAT = event.context.secrets.service_account_token;
   const APIBase = event.execution_metadata.devrev_endpoint;
+  console.log('Hello World!');
   const devrevSDK = client.setup({
     endpoint: APIBase,
     token: devrevPAT,
-  })
+  });
   try {
     const response = await devrevSDK.worksList({
       limit: 1,
-      type: [publicSDK.WorkType.Ticket]
+      type: [publicSDK.WorkType.Ticket],
     });
     return response;
   } catch (error) {
